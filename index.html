@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAE6DD; --card:#FFFDF8; --ink:#17202A; --ink2:#3D4752; --muted:#6B7480; --line:#DDD7CB;
+  --chip:#F1EDE5; --sel:#1F3A5A; --sel-bg:#EEF2F7; --accent:#C9822E; --err:#A23B2A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+header{height:56px;border-bottom:1px solid var(--line);position:relative}
+header .in{max-width:1180px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+header .brand{font-size:12px;letter-spacing:.14em;font-weight:600;color:var(--ink2)}
+header .sec{font-size:14px;color:var(--ink2)}
+#bar{position:absolute;left:0;bottom:-1px;height:3px;background:var(--ink);width:0;transition:width .3s}
+main{max-width:1180px;margin:0 auto;padding:40px 24px 64px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 36px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.narrow{max-width:760px;margin:0 auto}
+h1{font-size:26px;line-height:1.25;margin:0 0 16px;font-weight:600}
+h2{font-size:21px;line-height:1.35;margin:0 0 18px;font-weight:600}
+p{margin:0 0 14px;color:var(--ink2)}
+.small{font-size:13.5px;color:var(--muted)}
+.btnrow{display:flex;justify-content:flex-end;margin-top:26px;gap:12px}
+button.primary{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:13px 26px;font:600 15px "IBM Plex Sans",sans-serif;cursor:pointer}
+button.primary:disabled{background:#C4C7CB;cursor:not-allowed}
+hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+/* scenario layout */
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:start}
+.split.wide{grid-template-columns:minmax(0,.75fr) minmax(0,1.45fr)}
+.split.wide .scn p{font-size:14.5px}
+.scn .tag{display:inline-block;background:var(--chip);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--ink2);margin-bottom:12px}
+.scn h2{margin-bottom:14px}
+.scn p{color:var(--ink);font-size:15.5px}
+.scn .now{background:var(--chip);border-radius:10px;padding:12px 14px;font-weight:500;color:var(--ink);margin-top:6px}
+.qhead{font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.dots{display:flex;gap:5px;margin-bottom:20px}
+.dots span{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.dots span.on{background:var(--ink)}
+.q{font-size:19px;font-weight:600;line-height:1.4;margin:0 0 18px}
+/* grid */
+table.lik{width:100%;border-collapse:collapse;font-size:14.5px}
+table.lik th{font-weight:500;font-size:11.5px;color:var(--muted);text-align:center;padding:0 2px 8px;vertical-align:bottom;line-height:1.25}
+table.lik td{border-top:1px solid var(--line);padding:9px 2px;text-align:center}
+table.lik td.st{text-align:left;padding-right:10px;color:var(--ink);width:50%;font-size:14px}
+table.lik input{width:18px;height:18px;accent-color:var(--sel);cursor:pointer}
+table.lik tr.miss td.st{color:var(--err)}
+table.lik .cell{display:block;padding:4px 0;cursor:pointer}
+table.lik .cell .n{display:none}
+table.lik td.mends{display:none}
+:focus-visible{outline:3px solid #2F6FEB;outline-offset:2px}
+.slider:focus-visible{outline-offset:6px;border-radius:6px}
+details.scn summary{cursor:pointer;list-style:none;font-weight:600;font-size:16px;color:var(--ink)}
+details.scn summary::-webkit-details-marker{display:none}
+details.scn summary .more{display:block;font-weight:400;font-size:13.5px;color:var(--sel);margin-top:4px;text-decoration:underline}
+details.scn[open] summary .more{display:none}
+details.scn[open] summary{margin-bottom:10px}
+/* options */
+.opt{display:block;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;cursor:pointer;background:#fff;transition:border-color .15s}
+.opt:hover{border-color:#B9B2A4}
+.opt.on{border-color:var(--sel);background:var(--sel-bg)}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opt:focus-within{outline:3px solid #2F6FEB;outline-offset:2px}
+.opt .lab{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:2px}
+.opt .tx{font-size:15px;color:var(--ink)}
+.abitem{margin-bottom:18px}
+.ablab{font-weight:600;font-size:14.5px;margin:0 0 8px}
+.abitem.miss .ablab{color:var(--err)}
+.abitem .opt{padding:11px 14px;margin-bottom:8px}
+.radio{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px;cursor:pointer;background:#fff}
+.radio.on{border-color:var(--sel);background:var(--sel-bg)}
+.radio input{accent-color:var(--sel);width:18px;height:18px}
+/* 1-7 buttons */
+.scale{display:flex;gap:8px}
+.scale button{flex:1;height:52px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font:500 16px "IBM Plex Sans";cursor:pointer;color:var(--ink)}
+.scale button.on{border-color:var(--sel);background:var(--sel);color:#fff}
+.ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px}
+/* slider */
+.slider{position:relative;height:44px;margin:26px 0 4px;cursor:pointer;touch-action:none}
+.slider .track{position:absolute;left:0;right:0;top:19px;height:6px;border-radius:3px;background:#E3DDD0}
+.slider .fill{position:absolute;left:0;top:19px;height:6px;border-radius:3px;background:var(--sel)}
+.slider .knob{position:absolute;top:10px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:var(--sel);box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.slider .val{position:absolute;top:-22px;transform:translateX(-50%);font:600 14px "IBM Plex Mono",monospace;color:var(--sel)}
+.ticks{display:flex;justify-content:space-between;font:500 13px "IBM Plex Mono",monospace;color:var(--ink2);margin-top:2px}
+.hint{font-size:13.5px;color:var(--muted);margin-top:14px}
+.err{color:var(--err);font-size:14px;margin-top:12px;min-height:20px}
+/* tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 6px}
+.tile{border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;background:#fff}
+.tile h3{margin:0 0 6px;font-size:17px}
+.tile p{font-size:14.5px;margin-bottom:8px}
+.tile .ex{font-style:italic;color:var(--muted);font-size:14px}
+.code{display:inline-block;font:500 24px "IBM Plex Mono",monospace;letter-spacing:.08em;background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:10px 18px;margin:4px 0 16px}
+input.num, select{font:16px "IBM Plex Sans",system-ui,sans-serif;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;width:140px}
+select{width:100%;max-width:420px}
+label.fl{display:block;font-weight:600;margin:18px 0 8px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pills .radio{margin:0}
+@media (max-width:860px){
+  .split,.split.wide{grid-template-columns:1fr}
+  .card{padding:24px 20px}
+  main{padding:24px 14px 48px}
+  .tiles{grid-template-columns:1fr}
+  table.lik td.st{width:40%;font-size:13.5px}
+  table.lik th{font-size:10px}
+}
+/* phones: each statement becomes its own block with large tap targets */
+@media (max-width:640px){
+  h1{font-size:23px} .q{font-size:17px}
+  table.lik, table.lik tbody{display:block}
+  table.lik tr:first-child{display:none}
+  table.lik tr[data-k]{display:grid;grid-template-columns:repeat(var(--n),1fr);border-top:1px solid var(--line);padding:14px 0 8px}
+  table.lik td{border:0;padding:0}
+  table.lik td.st{grid-column:1/-1;width:auto;font-size:15px;padding:0 0 10px}
+  table.lik .cell{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0}
+  table.lik .cell .n{display:block;font-size:12.5px;color:var(--muted)}
+  table.lik input{width:24px;height:24px}
+  table.lik td.mends{grid-column:1/-1;display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding-top:2px}
+  .slider .knob{width:30px;height:30px;margin-left:-15px;top:7px}
+  .btnrow button.primary{min-height:48px}
+  .ends{font-size:12.5px}
+}
+</style>
+<style>
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.galt{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.galt .ex{background:#fff;border:1px solid #E3DDD0;border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.5}
+.galt .exn{color:#6B6458;font-size:11px;margin-bottom:4px}
+@media (max-width:640px){.gal,.galt{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.galt{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<header><div class="in"><div class="brand">RESEARCH STUDY</div><div class="sec" id="sec">Welcome</div></div><div id="bar"></div></header>
+<main id="app"></main>
+<script>
+const C = {"pre": {"img": ["You’re using a new AI image generator tool. You give it a text prompt describing a specific scene you want it to create, for example, ‘A futuristic cityscape at sunset with flying cars and glowing neon signs.’", "Sometimes, the AI generates an image that is incredibly close to what you imagined – detailed, creative, and capturing the mood perfectly. Other times, using a very similar prompt, or even the exact same prompt again, it produces images that are quite different, missing key elements you described, looking distorted, or having a completely unexpected style. There doesn’t seem to be an obvious reason for why it’s sometimes so accurate and other times so off-target, even when your input is consistent."], "txt": ["You’re using a new AI writing tool. You give it a text prompt describing a specific piece of writing you want it to create, for example, ‘A short, upbeat product description for a reusable water bottle, under 80 words.’", "Sometimes, the AI writes text that is incredibly close to what you imagined – clear, creative, and capturing the tone perfectly. Other times, using a very similar prompt, or even the exact same prompt again, it produces text that is quite different, missing key points you described, sounding awkward, or having a completely unexpected style. There doesn’t seem to be an obvious reason for why it’s sometimes so accurate and other times so off-target, even when your input is consistent."]}, "post": {"img": "So, as you think about trying to generate another specific image, you’re feeling quite uncertain about whether the AI will actually produce the kind of image you’re hoping for this time.", "txt": "So, as you think about trying to generate another specific piece of text, you’re feeling quite uncertain about whether the AI will actually produce the kind of text you’re hoping for this time."}, "views": {"E": "You know these AI models are trained on vast amounts of data and have complex algorithms. Some online guides suggest that mastering ‘prompt engineering’ – learning the very specific keywords, phrases, and parameters the AI understands best – is the key to getting consistently great results. This implies it’s a skill you can develop.", "A": "You know these AI models are trained on vast amounts of data and have complex algorithms. You’ve read that these generative AIs have an inherent element of ‘creativity’ or randomness, meaning they might always produce a range of varied outputs even with identical prompts, and that this unpredictability is just part of how they work.", "MU": "You know these AI models are trained on vast amounts of data and have complex algorithms. Some online guides suggest that mastering ‘prompt engineering’ – learning the very specific keywords, phrases, and parameters the AI understands best – is the key to getting consistently great results. This implies it’s a skill you can develop. However, you’ve also read that these generative AIs have an inherent element of ‘creativity’ or randomness, meaning they might always produce a range of varied outputs even with identical prompts, and that this unpredictability is just part of how they work."}, "sc": {"img": {"title": "An AI image generator", "pre": ["You’re using a new AI image generator tool. You give it a text prompt describing a specific scene you want it to create, for example, ‘A futuristic cityscape at sunset with flying cars and glowing neon signs.’", "Sometimes, the AI generates an image that is incredibly close to what you imagined – detailed, creative, and capturing the mood perfectly. Other times, using a very similar prompt, or even the exact same prompt again, it produces images that are quite different, missing key elements you described, looking distorted, or having a completely unexpected style. There doesn’t seem to be an obvious reason for why it’s sometimes so accurate and other times so off-target, even when your input is consistent."], "post": "So, as you think about trying to generate another specific image, you’re feeling quite uncertain about whether the AI will actually produce the kind of image you’re hoping for this time.", "lead": "Given this uncertainty about the AI image generator, please choose the option that best describes what you’d be most inclined to do or think.", "ab1": ["Additional information", "A detailed guide explaining exactly which keywords, phrases, and settings this AI responds to, so I can write the right prompt.", "A gallery of 50 images other people got from prompts like mine, so I can see the range of results the AI tends to produce."], "ab2": ["Strategy for getting the image you want", "I would systematically tweak my prompt, word by word, parameter by parameter, trying to converge on the one image I have in mind.", "I would generate a larger number of images with similar prompts and then pick the one that comes closest to what I want."], "thing": "image", "tool": "AI image generator", "target": "the AI image generator’s output"}, "txt": {"title": "An AI writing tool", "pre": ["You’re using a new AI writing tool. You give it a text prompt describing a specific piece of writing you want it to create, for example, ‘A short, upbeat product description for a reusable water bottle, under 80 words.’", "Sometimes, the AI writes text that is incredibly close to what you imagined – clear, creative, and capturing the tone perfectly. Other times, using a very similar prompt, or even the exact same prompt again, it produces text that is quite different, missing key points you described, sounding awkward, or having a completely unexpected style. There doesn’t seem to be an obvious reason for why it’s sometimes so accurate and other times so off-target, even when your input is consistent."], "post": "So, as you think about trying to generate another specific piece of text, you’re feeling quite uncertain about whether the AI will actually produce the kind of text you’re hoping for this time.", "lead": "Given this uncertainty about the AI writing tool, please choose the option that best describes what you’d be most inclined to do or think.", "ab1": ["Additional information", "A detailed guide explaining exactly which keywords, phrases, and settings this AI responds to, so I can write the right prompt.", "A collection of 50 texts other people got from prompts like mine, so I can see the range of results the AI tends to produce."], "ab2": ["Strategy for getting the text you want", "I would systematically tweak my prompt, word by word, parameter by parameter, trying to converge on the one text I have in mind.", "I would generate a larger number of texts with similar prompts and then pick the one that comes closest to what I want."], "thing": "text", "tool": "AI writing tool", "target": "the AI writing tool’s output"}}, "texts": ["Cold drinks, warm vibes. This bottle keeps your water chilled from morning coffee runs to sunset hikes. Toss it in your bag and go!", "This bottle is made of stainless steel. It holds 24 ounces. It has a lid. It can be washed. It is reusable.", "Little bottle, big difference. Fill up, head out, and feel good knowing every refill keeps one more plastic bottle out of the ocean.", "Water bottle. Reusable. Good for you and the planet. Buy now.", "Our water bottle is great. It is really great. Customers say it is great. You will think it is great too, because it is a great water bottle that is great.", "Hydration just got happy! Our leak-proof, double-wall bottle keeps water icy all day, so you can sip, smile, and stay plastic-free wherever life takes you."], "imgs": ["ex01", "ex02", "ex05", "ex08", "ex07", "ex09"], "tips": {"img": ["Name the main subject first.", "Say the style you want, for example photo, watercolor, or 3D render.", "Add lighting and mood, for example golden hour or neon glow.", "Describe the framing, for example close-up or wide shot.", "Remove words that could mean several things."], "txt": ["Say what the text is for and who will read it.", "Give the length you want, for example under 80 words.", "Name the tone, for example upbeat, formal, or playful.", "List the key points that must be included.", "Give a short example of the style you like."]}};
+const LIK7 = ["Strongly disagree","Disagree","Somewhat disagree","Neither","Somewhat agree","Agree","Strongly agree"];
+const CONSENT_HTML = `<div class="card narrow" id="letter">
+   <div class="qhead" style="letter-spacing:.08em">UNIVERSITY OF GEORGIA · CONSENT LETTER</div>
+   <h1>Judgment and Decision Making: How People Interpret Information and Make Decisions</h1>
+   <p>Dear Participant,</p>
+   <p>My name is Amin Shiri and I am a faculty member in the Terry College of Business at the University of Georgia. I am inviting you to take part in a research study.</p>
+   <p>I am conducting research on how people perceive and evaluate information and how these perceptions influence their judgments and decision-making.</p>
+   <p>I am looking for adults who are 18 years of age or older and who live in the United States.</p>
+   <p>If you agree to take part in this study, you will be asked to complete an online survey. In the survey, you will read short descriptions of products or situations and answer questions about your thoughts, feelings, and choices. This study includes multiple conditions, and you will be randomly assigned to one of these conditions. There will be one session. The session will take about %%MINUTES%% minutes, and you can complete it online on your own computer.</p>
+   <p>Participation is voluntary. You can refuse to take part or stop at any time without penalty. Your decision to participate or to stop will have no impact on your relationship with the University of Georgia or with the survey platform.</p>
+   <p>There are no expected risks beyond those of everyday life. There are questions that may make you uncomfortable. You can skip these questions if you do not wish to answer them.</p>
+   <p>You may not benefit directly from this study. Your responses may help us better understand how people perceive and evaluate information and how these perceptions influence their judgments and decision-making.</p>
+   <p>This survey is anonymous. We will not ask for your name or collect any information that could identify you, so your answers cannot be linked back to you. Because the survey is online, there is a small chance that others could see your answers while they are being sent over the Internet. Once we receive your answers, they will be stored on secure, password-protected computers. Your information will not be used or shared for any future research studies.</p>
+   <p>If you are interested in participating or have questions about this research, please feel free to contact me at amin.shiri@uga.edu. If you have any complaints or questions about your rights as a research volunteer, contact the IRB at 706-542-3199 or by email at IRB@uga.edu.</p>
+   <p>Completing the survey will show that you agree to take part in this study. Please keep a copy of this letter for your records.</p>
+   <p style="margin-bottom:2px">Sincerely,</p>
+   <p style="line-height:1.45">Amin Shiri<br>Assistant Professor<br>Terry College of Business<br>University of Georgia<br>amin.shiri@uga.edu</p>
+   <hr>
+   <div class="btnrow" style="justify-content:space-between;align-items:center"><a href="#" id="pr" class="small" style="color:var(--ink2)">Print or save a copy of this letter</a><button class="primary" id="b">Begin the study</button></div></div>`;
+/* ======================= CONFIG ======================= */
+const CONFIG = {
+  STUDY_VERSION: "s3-pilot-1.0.0",
+  SUPABASE_URL: "https://zwipeiluipgwqrgbmncc.supabase.co",
+  SUPABASE_KEY: "sb_publishable_tOpJrlMKyh4KHuML2CEbbw_Z0Cam54c",   // publishable key: insert-only by RLS
+  TABLE: "study3_responses",
+  MINUTES: 10,
+  SONA_CREDIT_URL: "",   // SONA completion URL; the participant's SONA id is appended. Left empty: no redirect.
+  COMPLETION_CODE: "", PROLIFIC_RETURN: "https://app.prolific.com/submissions/complete?cc="
+};
+
+/* ======================= STATE ======================= */
+const qs = new URLSearchParams(location.search);
+const KEY = "mus3_state_v1";
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let S;
+try{ S = JSON.parse(sessionStorage.getItem(KEY)||"null"); }catch(e){ S=null; }
+if(!S){
+  S = {
+    step:0, started:new Date().toISOString(), t0:Date.now(),
+    source: qs.get("PROLIFIC_PID") ? "prolific" : (qs.get("id")||qs.get("sona") ? "sona" : "direct"),
+    participant_id: qs.get("PROLIFIC_PID") || qs.get("id") || qs.get("sona") || null,
+    study_id: qs.get("STUDY_ID"), session_id: qs.get("SESSION_ID"),
+    is_test: qs.get("test")==="1",
+    framing:null, output:null, assign_source:null,
+    ab_order: shuffle(["ab1","ab2"]),                              // which A/B question comes first
+    ab_left: {ab1: Math.random()<.5?"E":"A", ab2: Math.random()<.5?"E":"A"},   // which option is shown as A (top)
+    res_left: Math.random()<.5?"tips":"examples",
+    para_shown: 1,
+    answers:{ demo:{}, final:{} }, timing:{}, para_ms:{}, events:{resumes:0, blur:0, back:0}
+  };
+} else { S.events.resumes++; }
+function save(){ try{sessionStorage.setItem(KEY, JSON.stringify(S))}catch(e){} }
+
+const FLOW = [
+  {kind:"consent"}, {kind:"about"}, {kind:"intro"},
+  {kind:"ab", n:0}, {kind:"ab", n:1}, {kind:"alloc"}, {kind:"res"}, {kind:"resource"},
+  {kind:"attn"}, {kind:"demo"}, {kind:"final"}, {kind:"done"}
+];
+
+const app = document.getElementById("app"), secEl = document.getElementById("sec"), bar = document.getElementById("bar");
+let tScreen = Date.now();
+function keyOf(st){ return st.kind + (st.n!=null ? (st.n+1) : ""); }
+function go(n){ const cur=FLOW[S.step]; const k=keyOf(cur); S.timing[k]=(S.timing[k]||0)+(Date.now()-tScreen); S.step=n; save(); render(); window.scrollTo(0,0); }
+function next(){ go(S.step+1); }
+function softGo(complete,msg){ if(complete){ save(); next(); return; } document.getElementById("err").textContent=msg; }
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* ---------- condition ---------- */
+async function assign(){
+  if(S.framing) return;
+  const fF=qs.get("f"), fO=qs.get("o");                          // ?f=E|A|MU&o=img|txt (testing only)
+  if(S.is_test && ["E","A","MU"].includes(fF) && ["img","txt"].includes(fO)){ S.framing=fF; S.output=fO; S.assign_source="forced"; save(); return; }
+  try{
+    const r = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/rpc/study3_assign`, {method:"POST",
+      headers:{"apikey":CONFIG.SUPABASE_KEY,"Content-Type":"application/json"}, body:JSON.stringify({p_test:S.is_test})});
+    if(r.ok){ const d=await r.json(); const x=Array.isArray(d)?d[0]:d; if(x&&x.framing){ S.framing=x.framing; S.output=x.output; S.assign_source="balanced"; save(); return; } }
+  }catch(e){}
+  S.framing=["E","A","MU"][Math.floor(Math.random()*3)]; S.output=Math.random()<.5?"img":"txt"; S.assign_source="random_fallback"; save();
+}
+const sc = ()=>C.sc[S.output];
+const paras = ()=>[...C.pre[S.output], C.views[S.framing], C.post[S.output]];
+function card(n){ const s=sc(); return `<div class="card scn"><div class="tag">Technology</div><h2>${esc(s.title)}</h2>${paras().slice(0,n).map(p=>`<p>${esc(p)}</p>`).join("")}</div>`; }
+function sideCard(){
+  const s=sc(); const narrow=matchMedia("(max-width:860px)").matches;
+  return narrow ? `<details class="card scn"><summary>${esc(s.title)}<span class="more">Tap to read the situation again</span></summary>${paras().map(p=>`<p>${esc(p)}</p>`).join("")}</details>` : card(4);
+}
+function head(part,q){ const dots=[0,1].map(i=>`<span class="${i<part?"on":""}"></span>`).join(""); return `<div class="qhead">Part ${part} of 2 · Question ${q} of 2</div><div class="dots">${dots}</div>`; }
+function qscreen(headHtml, inner){
+  app.innerHTML = `<div class="split">${sideCard()}<div class="card">${headHtml}${inner}<div class="err" id="err" role="alert"></div><div class="btnrow"><button class="primary" id="b">Next</button></div></div></div>`;
+}
+function bindOpts(onPick){
+  document.querySelectorAll(".opt").forEach(lb=>lb.onclick=()=>{ const k=lb.dataset.k;
+    document.querySelectorAll(`.opt[data-k="${k}"]`).forEach(x=>x.classList.remove("on")); lb.classList.add("on");
+    lb.querySelector("input").checked=true; onPick(k, lb.dataset.c); save(); });
+  document.querySelectorAll(".opt input").forEach(i=>i.addEventListener("change",()=>{ if(i.checked) i.closest(".opt").click(); }));
+}
+
+/* ---------- screens ---------- */
+function render(){
+  tScreen = Date.now();
+  const st = FLOW[S.step];
+  bar.style.width = Math.round(100*S.step/(FLOW.length-1))+"%";
+  ({consent, about, intro, ab, alloc, res, resource, attn, demo, final, done})[st.kind](st);
+}
+
+function consent(){
+  secEl.textContent="Welcome";
+  app.innerHTML = CONSENT_HTML.replace("%%MINUTES%%", CONFIG.MINUTES);
+  document.getElementById("pr").onclick = e=>{ e.preventDefault(); window.print(); };
+  document.getElementById("b").onclick = ()=>{ S.answers.consent_at=new Date().toISOString(); next(); };
+}
+
+function about(){
+  secEl.textContent="Welcome";
+  app.innerHTML = `<div class="card narrow"><h1>About this study</h1>
+   <p>You will read a short situation about using an AI tool and answer some questions about it. Then you will answer a few questions about yourself.</p>
+   <p>Please imagine you are the person in the situation. There are no right or wrong answers. We are interested in your own view.</p>
+   <div class="err" id="err" role="alert"></div><div class="btnrow"><button class="primary" id="b">Continue</button></div></div>`;
+  const b=document.getElementById("b");
+  b.onclick = async()=>{ b.disabled=true; b.textContent="Loading…"; await assign(); S.para_shown=1; S.para_t=Date.now(); save(); next(); };
+}
+
+function intro(){
+  secEl.textContent="The situation";
+  const n=S.para_shown||1, last=n>=4;
+  app.innerHTML = `<div class="narrow">${card(n)}<div class="btnrow"><button class="primary" id="b">${last?"I have read this — continue":"Continue"}</button></div></div>`;
+  if(n>1){ const ps=app.querySelectorAll(".scn p"); ps[ps.length-1].scrollIntoView({behavior:"smooth",block:"nearest"}); }
+  document.getElementById("b").onclick=()=>{
+    S.para_ms["p"+n]=(S.para_ms["p"+n]||0)+(Date.now()-(S.para_t||tScreen)); S.para_t=Date.now();
+    if(last){ next(); } else { S.para_shown=n+1; save(); intro(); }
+  };
+}
+
+function ab(st){
+  secEl.textContent="The situation";
+  const key=S.ab_order[st.n], [lab,E,A]=sc()[key], first=S.ab_left[key], second=first==="E"?"A":"E", txt={E,A}, cur=S.answers[key+"_choice"];
+  const o=(code,L)=>`<label class="opt ${cur===code?"on":""}" data-k="${key}" data-c="${code}"><input type="radio" name="${key}" value="${code}"><div class="lab">${L}</div><div class="tx">${esc(txt[code])}</div></label>`;
+  qscreen(head(1,st.n+1), `<div class="q" style="font-size:17px">${esc(sc().lead)}</div><div class="abitem" data-k="${key}"><div class="ablab">${esc(lab)}</div>${o(first,"A")}${o(second,"B")}</div>`);
+  bindOpts((k,c)=>{ S.answers[k+"_choice"]=c; S.answers[k]= c==="A"?1:0; });
+  document.getElementById("b").onclick=()=>softGo(S.answers[key+"_choice"]!=null, "Please choose an option to continue.");
+}
+
+function alloc(){
+  secEl.textContent="The situation";
+  const th = S.output==="img"?"images":"texts";
+  qscreen(head(2,1), `<p class="small" style="margin-top:0">Many AI tools measure use in <b>tokens</b>, small units of computing. Every request you make to the AI uses some tokens.</p>
+    <div class="q">You have <b>100 tokens</b> to spend on checking and improving the AI’s work before your next try. How would you split them between these two ways?</div>
+    <div class="abitem"><div class="opt" style="cursor:default"><div class="lab">Prompt review</div><div class="tx">The AI reviews your prompt and tells you exactly what to change.</div></div>
+    <div class="opt" style="cursor:default"><div class="lab">Extra versions</div><div class="tx">The AI makes extra ${th} from your prompt so you can compare them and pick the best one.</div></div></div>
+    <div class="slider" id="sl" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-label="Tokens to extra versions"><div class="track"></div><div class="fill" style="width:0"></div></div>
+    <div class="ticks"><span>100 / 0</span><span>50 / 50</span><span>0 / 100</span></div>
+    <div class="ends"><span>All 100 to prompt review</span><span>All 100 to extra versions</span></div>
+    <div class="hint" id="split">Click, tap, or drag along the line to give your answer.</div>`);
+  const out=v=>{ document.getElementById("split").innerHTML=`Prompt review: <b>${100-v}</b> tokens · Extra versions: <b>${v}</b> tokens`; };
+  makeSlider(document.getElementById("sl"), S.answers.tokens_extra, v=>{ S.answers.tokens_extra=v; out(v); save(); });
+  if(S.answers.tokens_extra!=null) out(S.answers.tokens_extra);
+  document.getElementById("b").onclick=()=>softGo(S.answers.tokens_extra!=null, "Please click, tap, or drag along the line to give your answer.");
+}
+
+function res(){
+  secEl.textContent="The situation";
+  const img=S.output==="img";
+  if(img) C.imgs.forEach(n=>{ const im=new Image(); im.src=`img/${n}.jpg`; });
+  const T={tips:`Prompt tips: a short guide on how to write prompts for ${img?"AI image tools":"AI writing tools"}.`,
+           examples: img?"Example images: 6 images an AI tool made from prompts like yours.":"Example texts: 6 texts an AI tool wrote from prompts like yours."};
+  const first=S.res_left, second=first==="tips"?"examples":"tips", cur=S.answers.resource;
+  const o=(code,L)=>`<label class="opt ${cur===code?"on":""}" data-k="res" data-c="${code}"><input type="radio" name="res" value="${code}"><div class="lab">${L}</div><div class="tx">${esc(T[code])}</div></label>`;
+  qscreen(head(2,2), `<div class="q">Before you continue, you can look at one of these two resources now. Which one would you like to see?</div>
+    <div class="abitem" data-k="res">${o(first,"A")}${o(second,"B")}</div><p class="small">Your choice will open on the next page.</p>`);
+  bindOpts((k,c)=>{ S.answers.resource=c; S.answers.resource_examples = c==="examples"?1:0; });
+  document.getElementById("b").onclick=()=>softGo(S.answers.resource!=null, "Please choose an option to continue.");
+}
+
+function resource(){
+  secEl.textContent="The situation";
+  const img=S.output==="img";
+  let body;
+  if(S.answers.resource==="tips"){
+    body=`<div class="card narrow"><div class="qhead">Prompt tips</div><h2>How to write prompts for ${img?"AI image tools":"AI writing tools"}</h2>
+      <ol style="line-height:1.7;font-size:16px">${C.tips[S.output].map(t=>`<li>${esc(t)}</li>`).join("")}</ol>`;
+  } else if(img){
+    body=`<div class="card" style="max-width:760px;margin:0 auto"><div class="qhead">Example images</div><h2>6 images an AI tool made from prompts like yours</h2>
+      <div class="gal">${C.imgs.map(f=>`<img src="img/${f}.jpg" alt="Example image">`).join("")}</div>`;
+  } else {
+    body=`<div class="card" style="max-width:900px;margin:0 auto"><div class="qhead">Example texts</div><h2>6 texts an AI tool wrote from prompts like yours</h2>
+      <div class="galt">${C.texts.map((t,i)=>`<div class="ex"><div class="exn">Example ${i+1}</div>${esc(t)}</div>`).join("")}</div>`;
+  }
+  app.innerHTML = body + `<div class="btnrow"><button class="primary" id="b">Continue</button></div></div>`;
+  document.getElementById("b").onclick=next;
+}
+
+function attn(){
+  secEl.textContent="The situation";
+  const v=S.answers.attn;
+  app.innerHTML = `<div class="split">${sideCard()}<div class="card"><div class="qhead">One more question</div>
+    <div class="q">To show you are reading, please select “Disagree” for this question.</div>
+    ${LIK7.map((l,i)=>`<label class="radio ${v===i+1?"on":""}"><input type="radio" name="attn" value="${i+1}" ${v===i+1?"checked":""}>${l}</label>`).join("")}
+    <div class="err" id="err" role="alert"></div><div class="btnrow"><button class="primary" id="b">Next</button></div></div></div>`;
+  document.querySelectorAll(".radio").forEach(lb=>lb.onclick=()=>{ document.querySelectorAll(".radio").forEach(x=>x.classList.remove("on")); lb.classList.add("on"); lb.querySelector("input").checked=true; });
+  document.getElementById("b").onclick=()=>{ const r=document.querySelector('input[name="attn"]:checked'); if(r){ S.answers.attn=+r.value; S.answers.attn_pass = S.answers.attn===2?1:0; } softGo(!!r, "Please choose an option to continue."); };
+}
+
+function demo(){
+  secEl.textContent="About you";
+  const D=S.answers.demo;
+  const pill=(name,opts)=>`<div class="pills">${opts.map(([v,t])=>`<label class="radio ${D[name]===v?"on":""}"><input type="radio" name="${name}" value="${v}" ${D[name]===v?"checked":""}>${t}</label>`).join("")}</div>`;
+  app.innerHTML = `<div class="card narrow"><div class="qhead">ABOUT YOU</div><h2>A few last questions</h2>
+    <label class="fl">What is your age?</label><input class="num" id="age" type="number" min="18" max="100" value="${D.age??""}"> <span class="small">years</span>
+    <label class="fl">What is your gender?</label>${pill("gender",[["man","Man"],["woman","Woman"],["nonbinary","Non-binary"],["self","Prefer to self-describe"],["na","Prefer not to say"]])}
+    <input class="num" id="gself" style="width:100%;max-width:420px;margin-top:10px;display:${D.gender==="self"?"block":"none"}" placeholder="Please describe" value="${esc(D.gender_self||"")}">
+    <label class="fl">What is the highest level of education you have completed?</label>
+    <select id="edu"><option value="">Select…</option>
+      ${[["hs_less","Less than high school"],["hs","High school or equivalent"],["some_college","Some college, no degree"],["assoc","Associate degree"],["ba","Bachelor's degree"],["grad","Graduate or professional degree"],["na","Prefer not to say"]].map(([v,t])=>`<option value="${v}" ${D.education===v?"selected":""}>${t}</option>`).join("")}
+    </select>
+    <label class="fl">How often do you use AI tools to create images or text?</label>${pill("ai_use",[["never","Never"],["few_year","A few times a year"],["month","About once a month"],["week","About once a week"],["daily","Daily or almost daily"]])}
+    <div class="err" id="err" role="alert"></div><div class="btnrow"><button class="primary" id="b">Continue</button></div></div>`;
+  document.querySelectorAll(".pills").forEach(g=>g.querySelectorAll(".radio").forEach(lb=>lb.addEventListener("click",()=>{
+     g.querySelectorAll(".radio").forEach(x=>x.classList.remove("on")); lb.classList.add("on");
+     const i=lb.querySelector("input"); D[i.name]=i.value;
+     if(i.name==="gender") document.getElementById("gself").style.display = i.value==="self"?"block":"none"; save(); })));
+  document.getElementById("b").onclick=()=>{
+    const age=+document.getElementById("age").value; D.education=document.getElementById("edu").value; D.gender_self=document.getElementById("gself").value.slice(0,80);
+    if(age>=18 && age<=100) D.age=age;
+    softGo(!!(D.age && D.gender && D.education && D.ai_use && (D.gender!=="self" || D.gender_self.trim())), "Please answer every question to continue (age must be 18 to 100).");
+  };
+}
+
+function final(){
+  secEl.textContent="Almost done";
+  const F=S.answers.final;
+  app.innerHTML = `<div class="card narrow"><h2>One honest question</h2>
+    <p>Did you read the situation and answer the questions carefully? Your answer will <b>not</b> affect your payment or credit. It only helps us decide which answers to use.</p>
+    ${[["yes","Yes, I answered carefully"],["no","No, I did not always answer carefully"]].map(([v,t])=>`<label class="radio ${F.careful===v?"on":""}"><input type="radio" name="careful" value="${v}">${t}</label>`).join("")}
+    <label class="fl">Optional: any comments about the study?</label>
+    <textarea id="cm" rows="3" style="width:100%;font:15px 'IBM Plex Sans';padding:10px;border:1.5px solid var(--line);border-radius:10px">${esc(F.comments||"")}</textarea>
+    <div class="err" id="err" role="alert"></div><div class="btnrow"><button class="primary" id="b">Submit and finish</button></div></div>`;
+  document.querySelectorAll(".radio").forEach(lb=>lb.onclick=()=>{document.querySelectorAll(".radio").forEach(x=>x.classList.remove("on")); lb.classList.add("on"); F.careful=lb.querySelector("input").value; save();});
+  const b=document.getElementById("b");
+  b.onclick=async()=>{ F.comments=document.getElementById("cm").value.slice(0,1000);
+    if(!F.careful){ document.getElementById("err").textContent="Please choose an answer to continue."; return; }
+    b.disabled=true; b.textContent="Saving…"; const ok=await submit();
+    if(ok){ next(); } else { b.disabled=false; b.textContent="Try again"; document.getElementById("err").textContent="We could not save your answers. Please check your connection and try again."; } };
+}
+
+function done(){
+  secEl.textContent="Finish"; bar.style.width="100%";
+  if(S.source==="prolific" && CONFIG.COMPLETION_CODE){
+    app.innerHTML=`<div class="card narrow"><h1>Thank you for participating!</h1><p>Your answers have been saved. Taking you back to Prolific…</p></div>`;
+    if(!S.is_test) setTimeout(()=>location.href=CONFIG.PROLIFIC_RETURN+CONFIG.COMPLETION_CODE,1500); return;
+  }
+  const url = CONFIG.SONA_CREDIT_URL && S.participant_id ? CONFIG.SONA_CREDIT_URL + encodeURIComponent(S.participant_id) : "";
+  app.innerHTML=`<div class="card narrow"><h1>Thank you for participating!</h1><p>Your answers have been saved.${url?" Your SONA credit will be granted automatically.":""}</p></div>`;
+  if(url && !S.is_test) setTimeout(()=>location.href=url,2500);
+}
+
+function makeSlider(node, init, cb){
+  const fill=node.querySelector(".fill"); let knob=null, val=null;
+  function set(v){ v=Math.max(0,Math.min(100,Math.round(v)));
+    if(!knob){ knob=document.createElement("div"); knob.className="knob"; knob.innerHTML='<div class="val"></div>'; node.appendChild(knob); }
+    knob.style.left=v+"%"; fill.style.width=v+"%"; knob.querySelector(".val").textContent=v; val=v; node.setAttribute("aria-valuenow",v); cb(v); }
+  if(init!=null) set(init);
+  function pos(e){ const r=node.getBoundingClientRect(); return (e.clientX-r.left)/r.width*100; }
+  let drag=false;
+  node.addEventListener("pointerdown",e=>{drag=true; node.setPointerCapture(e.pointerId); set(pos(e));});
+  node.addEventListener("pointermove",e=>{ if(drag) set(pos(e)); });
+  node.addEventListener("pointerup",()=>drag=false);
+  node.addEventListener("keydown",e=>{ const step={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1,PageUp:10,PageDown:-10}[e.key];
+    if(step!==undefined){ e.preventDefault(); set((val==null?50:val)+step); } });
+}
+
+/* ======================= SAVE ======================= */
+async function submit(){
+  if(S.submitted) return true;
+  const row = { study_version:CONFIG.STUDY_VERSION, source:S.source, participant_id:S.participant_id, study_id:S.study_id, session_id:S.session_id,
+    is_test:S.is_test, framing:S.framing, output:S.output, attention_pass: S.answers.attn_pass===1, answers:S.answers,
+    meta:{ started:S.started, total_ms:Date.now()-S.t0, timing:S.timing, para_ms:S.para_ms, events:S.events, assign_source:S.assign_source,
+           ab_order:S.ab_order, ab_left:S.ab_left, res_left:S.res_left,
+           ua:navigator.userAgent, viewport:[innerWidth,innerHeight],
+           device:/iPad|Tablet/i.test(navigator.userAgent)?"tablet":(/Mobi|Android|iPhone/i.test(navigator.userAgent)?"phone":"desktop") } };
+  for(let i=0;i<3;i++){
+    try{ const r=await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${CONFIG.TABLE}`,{method:"POST",headers:{"apikey":CONFIG.SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(row)});
+      if(r.ok){ S.submitted=true; save(); return true; } }catch(e){}
+    await new Promise(r=>setTimeout(r,800*(i+1)));
+  }
+  return false;
+}
+
+history.pushState(null,"",location.href);
+addEventListener("popstate",()=>{ history.pushState(null,"",location.href); S.events.back++; save(); });
+addEventListener("blur",()=>{ S.events.blur++; save(); });
+render();
+
+</script>
+</body>
+</html>
